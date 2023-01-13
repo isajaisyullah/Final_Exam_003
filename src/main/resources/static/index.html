@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" 
+        integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
+        <script>
+            function get(){
+                let view = document.getElementById("view");
+//                view.innerHTML = "I Love MySelf";
+                
+                $.ajax({
+                    url:'http://localhost:8080/GET',
+                    dataType: 'text',
+                    success: function(result){
+                        view.innerHTML = result;
+                    }
+                });
+            }
+            
+            function post(){
+                let view = document.getElementById("view");
+                let id = document.getElementById("id").value;
+                let no_surat = document.getElementById("no_surat").value;
+                let judul = document.getElementById("judul").value;
+                let tembusan = document.getElementById("tembusan").value;
+                
+                
+                let json = 
+                        {
+                            "id":id, 
+                            "noSurat":no_surat, 
+                            "judul":judul, 
+                            "tembusan":tembusan
+                        };
+                let obj = JSON.stringify(json);
+                $.ajax({
+                    url:'http://localhost:8080/POST',
+                    data:obj,
+                    method:'POST',
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    success: function(result){
+                        view.innerHTML = result;
+                    }
+                });
+            }
+            
+            function put(){
+                let view = document.getElementById("view");
+                let id = document.getElementById("id").value;
+                let no_surat = document.getElementById("no_surat").value;
+                let judul = document.getElementById("judul").value;
+                let tembusan = document.getElementById("tembusan").value;
+                
+                let json = 
+                        {
+                            "id":id, 
+                            "noSurat":no_surat, 
+                            "judul":judul, 
+                            "tembusan":tembusan
+                        };
+                let obj = JSON.stringify(json);
+                $.ajax({
+                    url:'http://localhost:8080/PUT',
+                    data:obj,
+                    method:'PUT',
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    success: function(result){
+                        view.innerHTML = result;
+                    }
+                });
+            }
+            
+            function del(){
+                let id = document.getElementById("id").value;
+                
+                let json = {"id":id};
+                let obj = JSON.stringify(json);
+                $.ajax({
+                    url:'http://localhost:8080/DELETE',
+                    data:obj,
+                    method:'DELETE',
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    success: function(result){
+                        view.innerHTML = result;
+                    }
+                });
+            }
+            
+//            function upload(){
+//                let view = document.getElementById("view");
+//                let id = document.getElementById("id").value;
+//                let file = document.getElementById("file").value;
+//                
+//                
+//                let json = 
+//                        {
+//                            "id":id, 
+//                            "file":file
+//                        };
+//                let obj = JSON.stringify(json);
+//                $.ajax({
+//                    url:'http://localhost:8080/upload',
+//                    data:obj,
+//                    method:'POST',
+//                    contentType: 'application/json',
+//                    dataType: 'byte[]',
+//                    success: function(result){
+//                        view.innerHTML = result;
+//                    }
+//                });
+//                
+//            }
+        </script>
+    </head>
+    <body>
+        <div>RESTful Consume</div>
+        
+        <input type="text" id="id" name="id" placeholder="id">
+        <input type="text" id="no_surat" name="no_surat" placeholder="no_surat">
+        <input type="text" id="judul" name="judul" placeholder="judul">
+        <input type="text" id="tembusan" name="tembusan" placeholder="tembusan">
+        <input type="file" id="file" name="file" accept=".pdf">
+        <hr>
+        
+        <button onclick="get()">GET</button>
+        <button onclick="post()">POST</button>
+        <button onclick="put()">PUT</button>
+        <button onclick="del()">DELETE</button>
+        <!--<button onclick="upload()">upload</button>-->
+        
+        <br><br>
+        <div id="view">
+            
+        </div>
+    </body>
+</html>
